@@ -17,8 +17,10 @@ def detail(request, question_id):
 
 
 def results(request, question_id):
-    return render(request, 'demo/results.html', {'question_id': question_id})
+    question = get_object_or_404(Question, pk=question_id)
+    return render(request, 'demo/results.html', {'question': question})
 
 
 def vote(request, question_id):
-    return render(request, 'demo/vote.html', {'question_id': question_id})
+    question = get_object_or_404(Question, pk=question_id)
+    return render(request, 'demo/vote.html', {'question': question})
