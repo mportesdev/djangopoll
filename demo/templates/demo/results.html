@@ -18,5 +18,13 @@
     {% endfor %}
     </ul>
 
+    <p>
+        <a href="{% url 'demo:detail' question.id %}">Vote again?</a>
+    </p>
+
+    <p>
+        <a href="{% url 'demo:index' %}">index</a>
+    </p>
+
 </body>
 </html>
