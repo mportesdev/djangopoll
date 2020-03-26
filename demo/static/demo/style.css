@@ -1,0 +1,15 @@
+label {
+    color: purple;
+    font-weight: bold;
+}
+
+li a {
+    color: orange;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+li {
+    color: navy;
+    font-weight: bold;
+}
