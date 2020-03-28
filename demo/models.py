@@ -11,11 +11,13 @@ class Question(models.Model):
     def __str__(self):
         choices = self.choice_set.all()
         vote_sum = sum(choice.votes for choice in choices)
-        return f'{self.question_text} ({len(choices)} options, {vote_sum} votes)'
+        return (f'{self.question_text}'
+                f' ({len(choices)} options, {vote_sum} votes)')
 
     def was_published_recently(self):
         now = timezone.now()
-        return timezone.now() - datetime.timedelta(days=1) <= self.pub_date <= now
+        yesterday = now - datetime.timedelta(days=1)
+        return yesterday <= self.pub_date <= now
 
     was_published_recently.admin_order_field = 'pub_date'
     was_published_recently.boolean = True
