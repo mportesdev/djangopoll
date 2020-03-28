@@ -42,8 +42,8 @@ class QuestionIndexViewTests(TestCase):
         self.assertEqual(question_list[0], past_question)
 
     def test_two_past_questions(self):
-        past_question_1 = create_question(question_text='Past question 1.', days=-30)
-        past_question_2 = create_question(question_text='Past question 2.', days=-5)
+        past_question_1 = create_question(question_text='Past question 1.', days=-7)
+        past_question_2 = create_question(question_text='Past question 2.', days=-14)
         response = self.client.get(reverse('demo:index'))
         question_list = response.context['latest_question_list']
         self.assertEqual(len(question_list), 2)
@@ -62,6 +62,21 @@ class QuestionDetailViewTests(TestCase):
     def test_past_question(self):
         past_question = create_question(question_text='Past question.', days=-5)
         url = reverse('demo:detail', args=(past_question.id,))
+        response = self.client.get(url)
+        self.assertContains(response, past_question.question_text)
+
+
+class QuestionResultsViewTests(TestCase):
+
+    def test_future_question(self):
+        future_question = create_question(question_text='Future question.', days=5)
+        url = reverse('demo:results', args=(future_question.id,))
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 404)
+
+    def test_past_question(self):
+        past_question = create_question(question_text='Past question.', days=-5)
+        url = reverse('demo:results', args=(past_question.id,))
         response = self.client.get(url)
         self.assertContains(response, past_question.question_text)
 
