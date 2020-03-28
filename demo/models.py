@@ -9,7 +9,9 @@ class Question(models.Model):
     pub_date = models.DateTimeField('date published')
 
     def __str__(self):
-        return self.question_text
+        choices = self.choice_set.all()
+        vote_sum = sum(choice.votes for choice in choices)
+        return f'{self.question_text} ({len(choices)} options, {vote_sum} votes)'
 
     def was_published_recently(self):
         now = timezone.now()
