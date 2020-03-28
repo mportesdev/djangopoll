@@ -17,9 +17,10 @@ class QuestionAdmin(admin.ModelAdmin):
           'classes': ['collapse']}),
     ]
     inlines = [ChoiceInline]
-    list_display = ('question_text', 'pub_date', 'was_published_recently')
+    list_display = ('__str__', 'pub_date', 'was_published_recently')
     list_filter = ['pub_date']
     search_fields = ['question_text']
 
 
 admin.site.register(Question, QuestionAdmin)
+admin.AdminSite.site_header = 'Polls Demo administration'
